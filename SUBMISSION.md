@@ -143,3 +143,19 @@ conversion happens off-platform, days later, at the merchant's checkout. So the 
 shows the redemption it can observe and greys out the one it cannot, rather than inventing a
 figure. Closing that gap needs unique per-player codes and a brand-side redemption webhook. Until
 it exists, every ROI number quoted to a brand is a proxy and should be labelled as one.
+
+---
+
+## Three questions I'd want answered first
+
+Each of these is an assumption I couldn't verify, and each one changes the design rather than just
+the copy.
+
+1. **What coin-cap ceiling do brands actually accept?** I used 40% on Tier 3. It sets the whole
+   economy and it is a guess.
+2. **Who eats fulfilment failure — brand, PlaySuper, or the studio?** A dead coupon damages trust in
+   *the game*, so the studio has the most to lose and the least control. That asymmetry needs an
+   owner before it needs a process.
+3. **What is the real commission and studio split?** My headline derivation — 0.12% of DAU — rests
+   on ₹700 × 10% × 50%. At a 5% commission the required redemption rate doubles and this catalog is
+   priced wrong.

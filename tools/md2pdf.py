@@ -40,7 +40,7 @@ h1 + p + p + p { margin: 0 0 4mm; font-size: 8.6pt; color: #4A5A54; }
 
 h2 {
   font-size: 12.5pt; font-weight: 800; letter-spacing: -.2pt;
-  margin: 7.5mm 0 2.5mm; padding-bottom: 1.4mm;
+  margin: 5.6mm 0 2.2mm; padding-bottom: 1.2mm;
   border-bottom: .5pt solid #D3DDD8; color: #0B3A2B;
   break-after: avoid; page-break-after: avoid;
 }
@@ -49,19 +49,21 @@ h3 {
   break-after: avoid; page-break-after: avoid;
 }
 
-p { margin: 0 0 2.4mm; }
+p { margin: 0 0 2.1mm; }
 strong { font-weight: 700; color: #0E1A16; }
 em { color: #3A4A44; }
 a { color: #0B5C42; text-decoration: none; border-bottom: .4pt solid #A8CCBD; }
 
 ul, ol { margin: 0 0 2.6mm; padding-left: 5mm; }
-li { margin-bottom: 1mm; }
+li { margin-bottom: 1mm; break-inside: avoid; page-break-inside: avoid; }
+/* A numbered set of questions reads as one unit — never split it across a page. */
+ol { break-inside: avoid; page-break-inside: avoid; }
 
-hr { border: 0; border-top: .5pt solid #DCE5E1; margin: 5mm 0; }
+hr { border: 0; border-top: .5pt solid #DCE5E1; margin: 3.6mm 0; }
 
 /* ── tables: the backbone of this document ────────────────────────────── */
 table {
-  width: 100%; border-collapse: collapse; margin: 0 0 3.4mm;
+  width: 100%; border-collapse: collapse; margin: 0 0 2.9mm;
   font-size: 8.5pt; line-height: 1.4;
   break-inside: auto; page-break-inside: auto;
 }
@@ -70,9 +72,9 @@ th {
   text-align: left; font-weight: 700; font-size: 7.6pt;
   text-transform: uppercase; letter-spacing: .35pt; color: #0B3A2B;
   background: #EEF4F1; border-bottom: .7pt solid #BFD3CB;
-  padding: 1.7mm 2.2mm;
+  padding: 1.5mm 2.2mm;
 }
-td { padding: 1.7mm 2.2mm; border-bottom: .4pt solid #E4EBE8; vertical-align: top; }
+td { padding: 1.5mm 2.2mm; border-bottom: .4pt solid #E4EBE8; vertical-align: top; }
 tr { break-inside: avoid; page-break-inside: avoid; }
 tbody tr:nth-child(even) td { background: #FAFCFB; }
 td:first-child { color: #0E1A16; }
