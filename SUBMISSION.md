@@ -143,13 +143,3 @@ conversion happens off-platform, days later, at the merchant's checkout. So the 
 shows the redemption it can observe and greys out the one it cannot, rather than inventing a
 figure. Closing that gap needs unique per-player codes and a brand-side redemption webhook. Until
 it exists, every ROI number quoted to a brand is a proxy and should be labelled as one.
-
-## Where the reasoning lives
-
-| File | What's in it |
-|---|---|
-| `docs/01-assumptions.md` | Game, archetypes, non-goals, commercial inputs |
-| `docs/02-economy.md` | Peg, faucet, tiers, catalog, guardrails, the derivation |
-| `docs/03-event-taxonomy.md` | The contract. Properties, funnel, the leak, the measurement gap |
-| `docs/04-build-spec.md` | Stack, screen graph, state shape, PM panel spec |
-| `docs/05-integrity-and-abuse.md` | Farming, multi-accounting, voucher abuse |
