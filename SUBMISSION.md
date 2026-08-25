@@ -119,15 +119,26 @@ it exists, every ROI number quoted to a brand is a proxy and should be labelled 
 
 | Tool | What for |
 |---|---|
-| **Claude Code (Opus 5)** | All of it — architecture, every screen, the trick-taking match logic, the event bus, the economy derivation, these docs |
-| React 18 · TypeScript · Vite · Tailwind · framer-motion · zustand | Stack. No backend; state persists to `localStorage` |
+| **Claude Code (Opus 5)** | The build — architecture, every screen, the trick-taking match logic, the event bus, the economy derivation, these docs |
+| **Claude Design** | A parallel visual pass: I designed the store as a multi-screen canvas, then ported its typography, button geometry and instrumentation panel into the working build |
+| React 19 · TypeScript · Vite · Tailwind 4 · framer-motion · zustand | Stack. No backend; state persists to `localStorage` |
 | GitHub Pages + Actions | Deploy. Every push to `main` typechecks, builds and republishes |
 
-How I used it matters more than that I used it: I wrote a **7-phase gated brief** first and made it
-stop at checkpoints for review, so the decisions stayed mine. Twice it flagged that my own numbers
-broke — the original earn rate made a "this month" reward affordable in five days, and a single set
-of price bands cannot be "reach today" for both a Grinder and a Dipper. Both flags changed the
-design. The economy in this submission is the second version, not the first.
+**How I used them matters more than that I used them.**
+
+I wrote a **7-phase gated brief** for Claude Code first and made it stop at checkpoints for review,
+so the decisions stayed mine. Twice it flagged that my own numbers broke — the original earn rate
+made a "this month" reward affordable in five days, and a single set of price bands cannot be "reach
+today" for both a Grinder and a Dipper. Both flags changed the design. The economy here is the
+second version, not the first.
+
+The Claude Design pass was deliberately **not** adopted wholesale, and what I rejected from it is
+the more useful thing to know. I took its type scale, its pill button geometry, and its
+instrumentation-panel treatment, which were all better than my first pass. I left behind its light
+iris-and-cyan palette — a white SaaS surface bolted to a dark felt card table would read as two
+products — and I left behind its economy readout panel, because that design's own footnote said its
+funnel and economy figures were *"illustrative, not instrumented."* This build's console can't carry
+a section it would have to fake.
 
 ---
 
