@@ -23,6 +23,8 @@ export const ANNOTATIONS: Partial<Record<Screen, { t: string; d: string }[]>> = 
       d: 'A player holding no goal has no reason to return, so we surface the nearest reward instead of a catalog. Close enough to want, far enough to play for.' },
   ],
   lobby: [
+    { t: 'You land here, and you get a choice',
+      d: 'Play, or go straight to the rewards. But notice the merchandising: "Play now" is the hero and the store is one contextual tile. Not a 50/50 home screen with a "Collect Rewards" button — that would make the store a destination, which is the thing this design argues against.' },
     { t: 'One tile, never labelled "Store"',
       d: '"320 coins to your Zepto voucher" — the player has no shopping intent to appeal to, only a goal to be reminded of.' },
     { t: 'A guest in someone else\'s game',

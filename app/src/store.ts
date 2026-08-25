@@ -81,7 +81,11 @@ const initial = {
   lastMatch: null as 'win' | 'loss' | null,
   lastEarned: 0,
   redemptionsThisWeek: 0,
-  screen: 'match' as Screen,
+  // Land on the LOBBY, not mid-match. An evaluator with three minutes should get a choice on
+  // screen one — but as a game lobby ("Play now" hero + one contextual reward tile), never as a
+  // 50/50 nav with a "Collect Rewards" button. The note argues the store is not a destination;
+  // the landing screen has to agree with it.
+  screen: 'lobby' as Screen,
   activeSkuId: null as string | null,
   entryPoint: 'direct' as EntryPoint,
   pmOpen: true,

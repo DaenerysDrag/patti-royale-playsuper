@@ -5,11 +5,11 @@ browser at **1440×900** with the PM console open so the funnel is visible throu
 moving in the corner while you play is the single most persuasive thing in the video.
 
 Use **QuickTime → File → New Screen Recording**, or Cmd+Shift+5. Hit **Reset** first so you start
-clean with the how-to card up.
+clean on the lobby.
 
 | # | Time | Action | What it proves |
 |---|---|---|---|
-| 1 | 0:00–0:04 | Page loads with the **How to play** card. Let it sit ~2s, then **Deal my cards** | It's a game, and the rules are legible |
+| 1 | 0:00–0:05 | Lands on the **lobby** — "Play now" plus one contextual reward tile. Tap **Play now**, let the **How to play** card sit ~2s, then **Deal my cards** | It's a game with a store in it, and the rules are legible |
 | 2 | 0:04–0:12 | Play a hand. **Lose it deliberately** — play an off-suit card | The match is losable. Coins are earned, not granted |
 | 3 | 0:12–0:16 | Reward screen: "+15 coins", no scolding, path still shown | A loss is never a dead end |
 | 4 | 0:16–0:21 | Tap **Rewards**. Scroll the shelf slowly once — three groups, no search bar | A shelf, not a search engine |

@@ -18,10 +18,13 @@ export default function Lobby() {
 
   const goal = goals[0]
   const goalSku = goal ? skuById(goal.skuId) : null
-  const nearest = CATALOG
-    .map(sku => ({ sku, p: priceFor(sku, wallet, archetype) }))
-    .filter(x => x.p.short > 0)
-    .sort((a, b) => a.p.short - b.p.short)[0]
+  const priced = CATALOG.map(sku => ({ sku, p: priceFor(sku, wallet, archetype) }))
+  // Cheapest thing still out of reach — close enough to want, far enough to play for.
+  const outOfReach = priced.filter(x => x.p.short > 0).sort((a, b) => a.p.short - b.p.short)[0]
+  // If the player can already afford everything, fall back to the most valuable claimable item.
+  // Never leave the tile empty: it is the only entry point to the store from here.
+  const affordable = priced.filter(x => x.p.short === 0).sort((a, b) => b.p.coinCost - a.p.coinCost)[0]
+  const nearest = outOfReach ?? affordable
 
   const ctx = goal && goalSku
     ? { sku: goalSku, p: priceFor(goalSku, wallet, archetype), isGoal: true }
@@ -80,7 +83,7 @@ export default function Lobby() {
                     style={{ background: ctx.sku.art.bg }}>{ctx.sku.art.emoji}</div>}
               <div className="min-w-0 flex-1">
                 <div className="text-[9px] font-bold uppercase tracking-widest text-cream-dim/60">
-                  {ctx.isGoal ? 'Your goal' : 'Closest reward'}
+                  {ctx.isGoal ? 'Your goal' : ctx.p.short > 0 ? 'Closest reward' : 'Ready to claim'}
                 </div>
                 <div className="mt-0.5 truncate font-display text-[14px] font-bold">
                   {ctx.p.short > 0

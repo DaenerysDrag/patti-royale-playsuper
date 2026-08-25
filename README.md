@@ -18,7 +18,10 @@ on mobile — the PM console moves behind a toggle in the top bar.
 
 You start with **1,000 coins** so nothing needs grinding.
 
-1. **Read the card, hit "Deal my cards"** — three tricks, three cards. Follow suit and beat it.
+0. **You land on the lobby** — "Play now", and one contextual reward tile. If you'd rather skip
+   straight to the commerce, tap the tile. Everything below assumes you play first.
+1. **Play now → read the card → "Deal my cards"** — three tricks, three cards. Follow suit and
+   beat it.
 2. **Lose one on purpose** — play an off-suit card. Note that a loss still pays, and never scolds.
    *If the match couldn't be lost, coins would be granted rather than earned, and every "3 more
    wins" on the shelf would be decoration.*
