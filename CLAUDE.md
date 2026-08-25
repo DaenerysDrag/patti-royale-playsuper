@@ -57,9 +57,15 @@ PlaySuper Product Associate assignment. Brief: `../../PLAYSUPER_BUILD_PROMPT.md`
 - [x] Phase 3 — all 10 screens; match is losable (3 tricks, 3 cards, allocation is the skill)
 - [x] Phase 4 — responsive shell, scale() canvas, annotation rail, Simulate 5 days, Reset
 - [x] Phase 5 — PM panel, three sections
-- [ ] Phase 6 — deploy (needs Karan's Vercel browser auth)
-- [ ] Phase 7 — SUBMISSION.md + README + recording script → **CHECKPOINT 4**
-- [ ] Browser QA pass — nobody has clicked the UI yet
+- [x] Phase 6 — deployed to **GitHub Pages** (not Vercel — gh CLI was already authed, so no
+      interactive login was needed and nothing blocked). Live:
+      https://daenerysdrag.github.io/patti-royale-playsuper/
+      Repo (public): https://github.com/DaenerysDrag/patti-royale-playsuper
+      `.github/workflows/deploy.yml` typechecks + builds + republishes on every push to main.
+- [x] Phase 7 — SUBMISSION.md, README.md, RECORDING.md
+- [x] Browser QA — Karan tested 2026-08-25, no defects reported
+- [ ] Karan records the 40s walkthrough (RECORDING.md has the 9-shot list)
+- [ ] Send: live link + SUBMISSION.md + resume
 
 ## Owned by Karan — do not let the model pick these
 
