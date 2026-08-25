@@ -67,6 +67,20 @@ export default function Checkout() {
             <span className="text-[10px] text-cream-dim">Coin balance after</span>
             <CoinAmount n={wallet - coinsApplied} size={11} className="text-[11px] text-gold" />
           </div>
+
+          {cashDue > 0 && (
+            <div className="mt-2 flex items-center gap-2 rounded-xl border border-white/10
+              bg-black/20 px-3 py-2.5">
+              <div className="grid h-6 w-6 place-items-center rounded-md bg-white/10
+                text-[9px] font-bold">UPI</div>
+              <div className="min-w-0 flex-1">
+                <div className="truncate text-[11px] font-semibold">karan@okhdfc</div>
+                <div className="text-[9px] text-cream-dim/70">No address needed</div>
+              </div>
+              <button className="tappable rounded-lg bg-white/10 px-2.5 py-1.5
+                text-[10px] font-bold text-cream-dim">Change</button>
+            </div>
+          )}
         </div>
 
         <div className="mt-2.5 rounded-2xl border border-gold/20 bg-gold/8 p-3.5">

@@ -43,11 +43,13 @@ export default function Lobby() {
     <div className="flex h-full flex-col bg-felt"
       style={{ backgroundImage: 'radial-gradient(120% 55% at 50% 0%, #14503D 0%, #0E3B2E 60%, #072A20 100%)' }}>
 
-      <div className="flex items-center gap-2 px-4 pt-4">
-        <div>
-          <div className="font-display text-[19px] font-extrabold leading-none">Patti Royale</div>
-          <div className="mt-1 text-[10px] uppercase tracking-widest text-cream-dim/60">
-            Day {s.dayIndex} · {s.matchesToday} matches today
+      <div className="flex items-center gap-2.5 px-4 pt-4">
+        <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full border
+          border-gold/30 bg-gold/15 font-display text-[14px] font-extrabold text-gold">K</div>
+        <div className="min-w-0">
+          <div className="font-display text-[16px] font-extrabold leading-none">Patti Royale</div>
+          <div className="mt-1 truncate text-[10px] text-cream-dim/70">
+            Table 4 · 3 players waiting
           </div>
         </div>
         <div className="ml-auto rounded-full bg-black/35 px-3 py-2 border border-white/10">
@@ -55,7 +57,24 @@ export default function Lobby() {
         </div>
       </div>
 
-      <div className="mt-6 px-4">
+      {/* Stat strip — makes the lobby read as a game's meta layer rather than a shop's home */}
+      <div className="mx-4 mt-3 grid grid-cols-3 overflow-hidden rounded-xl border
+        border-white/10 bg-black/25">
+        {[
+          { v: s.dayIndex, k: 'day' },
+          { v: s.winStreak, k: 'win streak' },
+          { v: s.matchesToday, k: 'played today' },
+        ].map((x, i) => (
+          <div key={x.k} className={`px-2 py-2.5 text-center ${i ? 'border-l border-white/8' : ''}`}>
+            <div className="font-display text-[16px] font-extrabold leading-none text-cream">
+              {x.v}
+            </div>
+            <div className="mt-1 text-[9px] uppercase tracking-wider text-cream-dim/60">{x.k}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-3 px-4">
         <button onClick={() => s.go('match')}
           className="tappable w-full rounded-2xl border border-gold/25 p-5 text-left"
           style={{ background: 'linear-gradient(135deg, #16553F 0%, #0C3626 100%)' }}>

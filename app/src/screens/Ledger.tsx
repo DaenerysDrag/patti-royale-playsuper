@@ -66,6 +66,10 @@ export default function Ledger() {
       </div>
 
       <div className="px-4 pb-5">
+        <div className="mb-2.5 rounded-xl border border-white/8 bg-black/20 px-3 py-2.5
+          text-[10px] leading-relaxed text-cream-dim/75">
+          Every credit and debit is listed. Coins have no cash value outside the store.
+        </div>
         <Btn variant="primary" full onClick={() => s.go('match')}>Back to match</Btn>
       </div>
     </div>

@@ -99,6 +99,10 @@ export default function Vault() {
       </div>
 
       <div className="px-4 pb-5">
+        <div className="mb-2.5 rounded-xl border border-white/8 bg-black/20 px-3 py-2.5
+          text-[10px] leading-relaxed text-cream-dim/75">
+          If a brand rejects a code, we reissue it free. A dead coupon is our problem, not yours.
+        </div>
         <Btn variant="primary" full onClick={() => s.go('match')}>Back to match</Btn>
       </div>
     </div>
