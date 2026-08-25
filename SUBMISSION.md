@@ -1,9 +1,11 @@
 # Patti Royale — an in-game commerce store
 
-**Product Associate assignment · PlaySuper**
+**Product Associate assignment · PlaySuper**<br>
 Karan Makol · karan.makol@bluestacks.com · August 2026
 
-**Live prototype:** **https://daenerysdrag.github.io/patti-royale-playsuper/**  ·  **Code:** https://github.com/DaenerysDrag/patti-royale-playsuper
+**Live prototype:** https://daenerysdrag.github.io/patti-royale-playsuper/<br>
+**Code:** https://github.com/DaenerysDrag/patti-royale-playsuper
+
 Best viewed on a laptop — the PM console docks on the right and the reasoning callouts sit beside
 the phone. Works on mobile too.
 
@@ -23,7 +25,7 @@ So I did not build a storefront. I built a coin sink that lifts retention withou
 
 ## Assumptions
 
-| | |
+| | What I assumed |
 |---|---|
 | **Game** | *Patti Royale* — casual trick-taking cards. 1M DAU, India, Android-first. 1.8 sessions/day, 4 matches/session. Baseline ARPDAU **₹0.80** |
 | **Player** | Zero purchase intent on entry. ~40 seconds of attention between matches. Starts from the assumption that in-game "free rewards" are a scam |
@@ -187,7 +189,7 @@ None of it is enforced in a client-only prototype, and I'd rather say so than im
 |---|---|
 | **Claude Code (Opus 5)** | All of it — architecture, every screen, the trick-taking match logic, the event bus, the economy derivation, these docs |
 | React 18 · TypeScript · Vite · Tailwind · framer-motion · zustand | Stack. No backend; state persists to `localStorage` |
-| Vercel | Deploy |
+| GitHub Pages + Actions | Deploy. Every push to `main` typechecks, builds and republishes |
 
 How I used it matters more than that I used it: I wrote a **7-phase gated brief** first and made it
 stop at checkpoints for review, so the decisions stayed mine. Twice it flagged that my own numbers
@@ -199,7 +201,7 @@ design. The economy in this submission is the second version, not the first.
 
 ## Where the reasoning lives
 
-| File | |
+| File | What's in it |
 |---|---|
 | `docs/01-assumptions.md` | Game, archetypes, non-goals, commercial inputs |
 | `docs/02-economy.md` | Peg, faucet, tiers, catalog, guardrails, the derivation |
