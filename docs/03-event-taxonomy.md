@@ -11,12 +11,11 @@
 | Property | Type | Why it exists |
 |---|---|---|
 | **`coins_short_by`** | int | **The diagnostic.** On any SKU-scoped event: `max(0, coinCost − balance)`. `0` means the player could afford it and chose not to — an **interest** failure. `>0` means they couldn't — a **pricing or placement** failure. Nothing else in this taxonomy can separate those two, and they need opposite fixes |
-| `affordability_band` | enum | `reach_today` / `this_week` / `this_month` / `out_of_reach` — **computed for this player**, not read off the SKU (see FLAG 2 in `02-economy.md`) |
+| `sku_tier` | 1\|2\|3 | The item's tier, which fixes its coin cap. A property of the item, never of the player |
 | `days_to_afford` | float | `(coinCost − balance) / archetypeEarnRate` |
 | `entry_point` | enum | `reward_moment` / `lobby_tile` / `goal_nudge` / `direct` |
 | `archetype` | enum | `grinder` / `dipper` / `whale` |
 | `coin_balance` | int | Balance at fire time |
-| `loyalty_tier` | enum | `bronze` / `silver` / `gold` — determines the coin cap |
 | `goal_active` | bool | Whether a Goal was held when this fired |
 | `sessions_today`, `matches_today`, `day_index` | int | Session context |
 | `variant` | enum | `A` price-first / `B` reachability-first |
@@ -30,13 +29,13 @@
 | `store_tile_impression` | Store tile rendered in the lobby meta layer | `tile_copy`, `tile_context_sku` | Lobby | **1** |
 | `store_opened` | Store shelf mounts | `open_source` | Shelf | **2** |
 | `sku_impression` | SKU card enters viewport | `sku_id`, `tier_shown`, `position` | Shelf | — |
-| `sku_view` | SKU detail page opens | `sku_id`, `sku_type`, `mrp`, `coin_cost` | Product | **3** |
+| `sku_view` | SKU detail page opens | `sku_id`, `sku_kind`, `sku_tier`, `mrp`, `coin_cost` | Product | **3** |
 
 ### Intent
 
 | Event | Trigger | Extra properties | Surface | Funnel |
 |---|---|---|---|---|
-| `coin_slider_moved` | Slider settles (debounced 400ms) | `coins_applied`, `cash_remaining`, `cap_pct`, `hit_cap` | Product | — |
+| `coin_slider_moved` | Slider settles (Tier 3 only) | `coins_applied`, `cash_remaining`, `cap_pct`, `hit_cap` | Product | — |
 | `goal_created` | Player reserves a SKU | `sku_id`, `price_locked_until`, `days_to_afford` | Product | **4** |
 | `goal_progressed` | A match completes with a Goal held | `pct_complete`, `coins_gained`, `match_result` | Match | — |
 | `goal_completed` | Balance first covers the Goal's coin cost | `days_taken`, `matches_taken` | Match / HUD | — |

@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  --color-felt:      #0E3B2E;
+  --color-felt-deep: #072A20;
+  --color-felt-lift: #14503D;
+  --color-gold:      #E8B44A;
+  --color-gold-dim:  #A9812E;
+  --color-cream:     #F4EDE0;
+  --color-cream-dim: #B9B2A4;
+  --color-ink:       #08130F;
+  --color-danger:    #C2452D;
+  --color-slate:     #0B1114;
+
+  --font-display: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+  --font-body:    ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:    ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: #05100C;
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* The store canvas is a fixed 390x844 and NEVER reflows. Smaller viewports scale it. */
+.canvas { width: 390px; height: 844px; }
+
+/* Hover states only where hover actually exists, so mobile never sticks. */
+@media (hover: hover) {
+  .tappable { transition: transform .12s ease, filter .12s ease; cursor: pointer; }
+  .tappable:hover { transform: translateY(-1px); filter: brightness(1.08); }
+}
+.tappable:active { transform: scale(.975); }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+@keyframes coinRise {
+  0%   { opacity: 0; transform: translateY(14px) scale(.8); }
+  60%  { opacity: 1; transform: translateY(-6px) scale(1.06); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.coin-rise { animation: coinRise .5s cubic-bezier(.2,.9,.3,1) both; }

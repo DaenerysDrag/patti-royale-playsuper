@@ -12,13 +12,13 @@ PlaySuper Product Associate assignment. Brief: `../../PLAYSUPER_BUILD_PROMPT.md`
 3. **All drag interactions use pointer events** (`onPointerDown`/`onPointerMove`), never touch
    events, so the coin slider works with finger and mouse. Arrow keys too.
 4. **Commit after each screen.**
-5. **Economy numbers come from `docs/economy_model.xlsx`**, mirrored once in `src/economy.ts`.
-   Nothing else hardcodes an economy number. If a number changes, it changes in both.
-6. **Goals = reserved, not owned. Vault = owned vouchers. Never merge them.** A delivered voucher
-   never lands in "order history" — order history is a receipt, the Vault is an asset, and players
-   look for assets.
-7. **`tier` is a function, never a column.** Reachability is computed from the *viewing* player's
-   earn rate. The same SKU is "reach today" for a Grinder and "this month" for a Dipper.
+5. **Economy numbers live in `app/src/constants.ts` only** — mirrored in prose in
+   `docs/02-economy.md`. There is no xlsx model. Nothing else hardcodes an economy number.
+6. **Goals = reserved, not owned. Vault = owned voucher codes. Ledger = the only history screen**
+   (earns, spends and past claims in one chronological list). No separate order history.
+7. **The coin cap is a property of the ITEM, never of the player.** Tier 1/2 = 100%, Tier 3 = 40%.
+   No loyalty tiers, no dynamic pricing. The shelf order is fixed and identical for everyone —
+   no personalised ranking. Only the effort copy ("3 more wins") varies per player.
 8. **`wallet` must always equal `sum(ledger.delta)`.** Assert in dev. The ledger is a trust
    feature and a ledger that disagrees with the balance destroys it.
 9. **No dead ends.** Every state offers a next action. "You can't afford this" without a path is
@@ -32,8 +32,9 @@ PlaySuper Product Associate assignment. Brief: `../../PLAYSUPER_BUILD_PROMPT.md`
    earned, and every time-to-afford claim ("2 more wins", "16 days") becomes decoration.
 2. **Goals** — reserving inverts the funnel from `browse → buy` to `want → play → afford → buy`.
    The only part of the design that plausibly moves D7.
-3. **The PM panel** — live funnel with the leak named and diagnosed, plus three-sided unit
-   economics. Shows the analytics thinking rather than claiming it.
+3. **The PM panel** — three sections only (funnel with the leak named and diagnosed via
+   `coins_short_by`, experiment card, live event stream). Shows the analytics thinking rather than
+   claiming it. Deliberately not a dashboard.
 
 ## Load-bearing facts
 
@@ -41,18 +42,20 @@ PlaySuper Product Associate assignment. Brief: `../../PLAYSUPER_BUILD_PROMPT.md`
   and coupon inventory, **not coin supply.** Coins can be generous; conversion must be rationed.
 - Back-solving PlaySuper's published +5.2% ARPDAU gives an implied **0.119% of DAU redeeming daily**
   (≈1,189/day at 1M DAU, ≈₹5.35M/month of brand CAC). ⇒ Optimise for **retention breadth**, not
-  conversion depth. This is why the instrumented leak is `sku_view → goal_created`.
+  conversion depth. This is why the instrumented leak is `sku_view → goal_created`. The derivation
+  lives in `docs/02-economy.md` and in the note — NOT as a panel section.
 - Earn rates: **Grinder 528 · Whale 235 · Dipper 61** coins/day. Peg **10 coins = ₹1**.
 
 ## Phase status
 
-- [x] Phase 1 — docs (5 files + formula-driven xlsx + CSV) → **CHECKPOINT 1**
-- [ ] Phase 2 — scaffold: state + event bus first, no UI
-- [ ] Phase 3 — screens: match(losable) → reward → lobby → shelf → product → goals → checkout/vault
-- [ ] Phase 4 — responsive shell + desktop chrome
-- [ ] Phase 5 — PM panel
-- [ ] Phase 6 — deploy
+- [x] Phase 1 — docs (5 markdown files; no xlsx) → CHECKPOINT 1 signed off
+- [x] Phase 2 — scaffold: constants, types, catalog, pricing, event bus, store
+- [x] Phase 3 — all 10 screens; match is losable (3 tricks, 3 cards, allocation is the skill)
+- [x] Phase 4 — responsive shell, scale() canvas, annotation rail, Simulate 5 days, Reset
+- [x] Phase 5 — PM panel, three sections
+- [ ] Phase 6 — deploy (needs Karan's Vercel browser auth)
 - [ ] Phase 7 — SUBMISSION.md + README + recording script → **CHECKPOINT 4**
+- [ ] Browser QA pass — nobody has clicked the UI yet
 
 ## Owned by Karan — do not let the model pick these
 

@@ -10,15 +10,15 @@ Vite · React 18 · TypeScript · Tailwind · framer-motion · zustand + `persis
 No backend. No router — a single `screen` value in state drives the view (the store is a modal
 layer inside a game, not a website).
 
-## Screen graph
+## Screen graph — 10 screens
 
 ```
 match ──► reward_moment ──► lobby ──┬─► shelf ──► product ──┬─► checkout ──► confirmation
    ▲            │                   │                       └─► goal_created ─┐
    └────────────┴───────────────────┴───────────────────────────────────────────┘
                                     ├─► goals   (reserved, price-locked)
-                                    ├─► vault   (owned vouchers)
-                                    └─► ledger  (coin history)
+                                    ├─► vault   (owned voucher codes)
+                                    └─► ledger  (earns + spends + past claims — ONE list)
 ```
 
 Every leaf returns to `match`. The exit CTA is **"Resume match"**, never "Continue shopping".
@@ -31,7 +31,6 @@ type Screen = 'match'|'reward'|'lobby'|'shelf'|'product'|'checkout'|'confirm'|'g
 interface Store {
   // identity
   archetype: 'grinder'|'dipper'|'whale'
-  loyaltyTier: 'bronze'|'silver'|'gold'
   variant: 'A'|'B'
 
   // economy
@@ -39,9 +38,9 @@ interface Store {
   ledger: LedgerEntry[]          // { id, ts, delta, reason, skuId? }
 
   // objects — Goals and Vault are DISTINCT. Never merge them.
-  goals:  Goal[]                 // { skuId, createdAt, lockedUntil, coinCostLocked }
-  vault:  Voucher[]              // { code, skuId, issuedAt, expiresAt, state }
-  orders: Order[]
+  goals:  Goal[]                 // { skuId, createdAt, lockedUntilDay, coinCostLocked }
+  vault:  Voucher[]              // { code, skuId, issuedDay, expiresDay, state }
+  // No orders[] — a redemption is a ledger line with a cashPaid field. One history, not two.
 
   // session
   dayIndex: number
@@ -69,39 +68,33 @@ interface Sku {
   id: string
   brand: string
   title: string
-  type: 'voucher'|'product_digital'|'product_physical'
-  mrp: number              // ₹ — for vouchers, the discount face value
-  coinCapPct: number       // 1.0 for vouchers; 0.20/0.30/0.40 by loyalty tier for products
-  minSpend: number|null    // vouchers only
+  kind: 'voucher'|'subscription'      // digital only — no physical goods
+  tier: 1|2|3                         // drives the coin cap. A property of the ITEM.
+  mrp: number                         // ₹ — for vouchers, the discount face value
+  minSpend: number|null               // vouchers only
   expiryDays: number
   art: { bg: string; fg: string; emoji: string }
 }
 ```
 
-**`tier` is not a field.** It is computed per viewing player:
+**No personalised ranking.** The shelf order is fixed and identical for every player, grouped by
+item tier. The only thing that varies per player is the effort copy on a card:
 
 ```ts
-const coinCost   = sku.mrp * capFor(sku, loyaltyTier) * PEG
-const shortBy    = Math.max(0, coinCost - wallet)
-const daysToAfford = shortBy / earnRateFor(archetype)
-const band = daysToAfford <= 0 ? 'reach_today'
-           : daysToAfford <= 2  ? 'reach_today'
-           : daysToAfford <= 7  ? 'this_week'
-           : daysToAfford <= 28 ? 'this_month'
-           :                      'out_of_reach'
+const coinCost = sku.mrp * TIER_CAP[sku.tier] * PEG   // same for everyone
+const short    = Math.max(0, coinCost - wallet)
+const matches  = Math.ceil(short / avgMatchValue(archetype))   // "3 more wins"
 ```
-
-This is the whole recommender. See FLAG 2 in `02-economy.md` for why it cannot be a stored column.
 
 ## Constants — single source of truth
 
-`src/economy.ts` mirrors `docs/economy_model.xlsx` and nothing else hardcodes an economy number:
+`src/constants.ts` mirrors `docs/02-economy.md`. Nothing else hardcodes an economy number:
 
 ```ts
-export const PEG = 10                    // coins per ₹1 of discount value
+export const PEG = 10                    // coins per ₹1 of value
 export const EARN = { win: 50, loss: 15, streak: 40 }
 export const EARN_RATE = { grinder: 528, dipper: 61, whale: 235 }   // coins/day
-export const CAP = { bronze: 0.20, silver: 0.30, gold: 0.40 }
+export const TIER_CAP = { 1: 1.0, 2: 1.0, 3: 0.4 }                  // item, not player
 export const GUARDRAIL = { dailyEarnCeiling: 900, redemptionsPerWeek: 2 }
 export const UNIT_ECON = { baselineArpdau: 0.80, aov: 700, commissionPct: 0.10, studioSharePct: 0.50 }
 ```
@@ -135,21 +128,14 @@ Hover/cursor styling scoped under `@media (hover: hover)` so mobile never gets s
 
 ## PM panel requirements
 
-Five sections, in this order:
+**Three sections. Not a dashboard** — no economy tiles, no coin-float charts, no IAP-guardrail
+gauges. The panel shows the one question this product lives or dies on.
 
-1. **Live event stream** — newest first, name + key props, the leak's events highlighted
-2. **Funnel** — the six steps with drop-off % per step; step 3→4 annotated as the leak, with the
-   `coins_short_by` histogram beneath it
-3. **Economy** — earn rate vs sink rate, coin float, per-archetype mint vs sink, guardrail states
-4. **Three-sided unit economics** — one redemption traced end to end
-   (`₹700 order → ₹150 brand CAC → ₹70 commission → ₹35 studio → ₹0.0416 ARPDAU/DAU`), plus live
-   ARPDAU lift % vs the ₹0.80 baseline and implied monthly brand CAC budget.
-   `voucher_redeemed` renders **greyed with a "not observable" note** — never a fabricated number.
-5. **Experiment card** — the A/B toggle plus hypothesis, primary metric, guardrails, MDE
-
-**IAP guardrail, defined:** Whale-archetype gem purchases per Whale DAU, plus the share of Whale
-coin-cash checkouts where the cash leg substituted for a gem pack. Green while unchanged vs
-control. **Kill criterion: Whale IAP ARPDAU down >2% ⇒ roll back regardless of the retention win.**
+1. **Funnel** — the six steps with drop-off % per step; step 3→4 (`sku_view → goal_created`)
+   annotated as the leak, with the `coins_short_by` histogram beneath it so the panel shows *why*
+   it leaks. `voucher_redeemed` noted as **not observable** — never a fabricated number.
+2. **Experiment card** — the A/B toggle plus hypothesis, primary metric, guardrails, MDE.
+3. **Live event stream** — newest first, name + key props, the leak's events highlighted.
 
 ## Desktop-only chrome
 

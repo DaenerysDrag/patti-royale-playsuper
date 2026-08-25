@@ -64,6 +64,12 @@ derivation in `02-economy.md`.
 | Device | Mid-range Android, ~390pt logical width |
 | Payment | UPI. No card-on-file, no stored payment assumption |
 
+## Scope cuts (2026-08-25) — decided, not deferred
+
+No xlsx model · no loyalty tiers (coin cap is a property of the item) · digital-only catalog, so
+no address form or profile step · one ledger screen carrying earns, spends and past claims · PM
+panel is three sections · no PRD, no gifting, no personalised ranking.
+
 ## Commercial assumptions 🟡 — these three set the whole model
 
 | Input | Proposed | Why |
