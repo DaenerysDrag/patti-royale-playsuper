@@ -81,8 +81,6 @@ a section it would have to fake.
 | **Search** is the discovery primitive | 40-second window; choice paralysis kills it | **No search, no filters.** 12 items, 3 fixed groups |
 | Price is an **economic fact** | Coins are printed by the studio and cost the player *time* | Price shown in **effort** — "3 more wins" — computed from your earn rate |
 | Not buying is **neutral** | "You can't afford this" demotivates — damaging the retention this was sold to fix | **Zero dead ends.** Every locked item shows a ring and a Play button |
-| **Infinite catalog** wins | Infinite catalog dilutes | 12 SKUs, digital only |
-| A **cart** for multi-item baskets | Single-item impulse only | No cart. Two taps |
 | Currency is **fungible cash** | A currency that buys real goods will cannibalise IAP | Real-world rewards only. **Never in-game power** |
 | The store is **the destination** | Every second in-store costs the studio the session | Exit CTA is **"Back to match"**, never "Continue shopping" |
 | **Returns** handle regret | You cannot refund someone's *time* | **Coins refunded if a voucher expires unused.** No e-commerce analogue exists |
@@ -143,6 +141,11 @@ conversion happens off-platform, days later, at the merchant's checkout. So the 
 shows the redemption it can observe and greys out the one it cannot, rather than inventing a
 figure. Closing that gap needs unique per-player codes and a brand-side redemption webhook. Until
 it exists, every ROI number quoted to a brand is a proxy and should be labelled as one.
+
+> **North Star: % of DAU holding an active goal.**
+>
+> Guardrails: IAP ARPDAU flat-or-up, session length flat-or-up, redemption cap honoured, no coin
+> purchases of in-game power.
 
 ---
 
