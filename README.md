@@ -3,7 +3,7 @@
 A working prototype for the **PlaySuper Product Associate** assignment: a store inside a mobile
 game where players spend earned coins plus real money on real-world rewards.
 
-**▶ Live:** `<LINK>`
+**▶ Live:** **https://daenerysdrag.github.io/patti-royale-playsuper/**
 **📄 The note:** [`SUBMISSION.md`](./SUBMISSION.md) — product decisions and assumptions
 
 > In e-commerce, the cart is dead intent. In a game, the cart is a retention loop.

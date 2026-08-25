@@ -3,7 +3,7 @@
 **Product Associate assignment · PlaySuper**
 Karan Makol · karan.makol@bluestacks.com · August 2026
 
-**Live prototype:** `<LINK>`  ·  **Code:** `<REPO>`
+**Live prototype:** **https://daenerysdrag.github.io/patti-royale-playsuper/**  ·  **Code:** https://github.com/DaenerysDrag/patti-royale-playsuper
 Best viewed on a laptop — the PM console docks on the right and the reasoning callouts sit beside
 the phone. Works on mobile too.
 
