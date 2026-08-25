@@ -9,6 +9,7 @@ const LABEL: Record<string, string> = {
   daily_streak: 'Daily streak',
   redemption: 'Reward claimed',
   expiry_refund: 'Expired — coins returned',
+  demo_credit: 'Starter balance',
 }
 
 /**

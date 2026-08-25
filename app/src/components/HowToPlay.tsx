@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { EARN } from '../constants'
+import { DEMO_START_COINS, EARN } from '../constants'
 import { Btn } from '../components/ui'
 
 const Mini = ({ rank, suit, red, dim }:
@@ -98,6 +98,14 @@ export default function HowToPlay({ onStart }: { onStart: () => void }) {
         </div>
         <div className="mt-1.5 text-[10px] leading-relaxed text-cream-dim/70">
           Coins buy real rewards — Swiggy, Spotify, Zepto. A loss still pays, just less.
+        </div>
+        <div className="mt-2.5 rounded-xl border border-white/10 bg-black/25 px-3.5 py-2.5
+          text-[10px] leading-relaxed text-cream-dim">
+          <span className="font-semibold text-cream">
+            You start with {DEMO_START_COINS.toLocaleString('en-IN')} coins
+          </span>{' '}
+          so you can claim something straight away. For a bigger reward, use{' '}
+          <span className="text-gold">Simulate 5 days</span> in the top bar.
         </div>
 
         <Btn variant="gold" full className="mt-4" onClick={onStart}>Deal my cards</Btn>

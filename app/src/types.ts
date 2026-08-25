@@ -28,6 +28,7 @@ export interface LedgerEntry {
   dayIndex: number
   delta: number
   reason: 'match_win' | 'match_loss' | 'daily_streak' | 'redemption' | 'expiry_refund'
+    | 'demo_credit'
   skuId?: string
   /** Cash leg, for redemption lines — so the ledger doubles as order history. */
   cashPaid?: number

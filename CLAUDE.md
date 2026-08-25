@@ -45,6 +45,10 @@ PlaySuper Product Associate assignment. Brief: `../../PLAYSUPER_BUILD_PROMPT.md`
   conversion depth. This is why the instrumented leak is `sku_view → goal_created`. The derivation
   lives in `docs/02-economy.md` and in the note — NOT as a panel section.
 - Earn rates: **Grinder 528 · Whale 235 · Dipper 61** coins/day. Peg **10 coins = ₹1**.
+- **Demo seeds 1,000 coins** (`DEMO_START_COINS`) through a `demo_credit` ledger line, never
+  straight into `wallet` — the invariant is asserted in dev and the ledger is a trust feature.
+  Default archetype is **grinder** so one click of "Simulate 5 days" (+2,640) reaches Tier 3 and
+  the coin+cash slider. A real integration starts every player at zero.
 
 ## Phase status
 

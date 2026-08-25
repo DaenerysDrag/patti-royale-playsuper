@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { EARN, EARN_RATE, GUARDRAIL } from './constants'
+import { DEMO_START_COINS, EARN, EARN_RATE, GUARDRAIL } from './constants'
 import { skuById } from './catalog'
 import { coinCostFor, priceFor } from './pricing'
 import { registerContext, track } from './events'
@@ -54,11 +54,22 @@ interface State {
 
 const uid = () => Math.random().toString(36).slice(2, 10)
 
+/**
+ * The seed must go through the ledger, not straight into `wallet` — the invariant
+ * `wallet === sum(ledger.delta)` is asserted in dev, and the ledger is a trust feature. A balance
+ * that appears with no matching line is exactly the thing the ledger exists to disprove.
+ */
+const seedLedger = (): LedgerEntry[] => [{
+  id: 'seed', ts: Date.now(), dayIndex: 1, delta: DEMO_START_COINS, reason: 'demo_credit',
+}]
+
 const initial = {
-  archetype: 'dipper' as Archetype,
+  // Grinder by default so "Simulate 5 days" (+2,640) immediately opens up Tier 3 and the
+  // coin+cash slider. Switchable, and it only affects effort copy and the simulate rate.
+  archetype: 'grinder' as Archetype,
   variant: 'B' as Variant,
-  wallet: 0,
-  ledger: [] as LedgerEntry[],
+  wallet: DEMO_START_COINS,
+  ledger: seedLedger(),
   goals: [] as Goal[],
   vault: [] as Voucher[],
   dayIndex: 1,
@@ -289,10 +300,10 @@ export const useStore = create<State>()(
         setVariant: (variant) => set({ variant }),
         setArchetype: (archetype) => set({ archetype }),
         togglePm: () => set({ pmOpen: !get().pmOpen }),
-        reset: () => set({ ...initial }),
+        reset: () => set({ ...initial, ledger: seedLedger() }),
       }
     },
-    { name: 'pr_state', version: 3 },
+    { name: 'pr_state', version: 4 },
   ),
 )
 

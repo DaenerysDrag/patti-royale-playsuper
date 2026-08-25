@@ -33,6 +33,13 @@ export const TIER_NOTE = {
   3: 'Coins cover 40% — the rest is cash',
 } as const
 
+/**
+ * Starting balance for the demo. Not an economy rule — an evaluator affordance, so the whole
+ * loop (including a Tier 1/2 claim) is testable the moment the page opens without grinding
+ * matches first. A real integration starts every player at zero.
+ */
+export const DEMO_START_COINS = 1000
+
 export const GUARDRAIL = {
   dailyEarnCeiling: 900,   // ~1.7x a Grinder's normal day: binds bots, not humans
   redemptionsPerWeek: 2,   // protects brand coupon inventory — the real budget control
