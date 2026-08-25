@@ -1,7 +1,7 @@
 # Patti Royale — an in-game commerce store
 
 **Product Associate assignment · PlaySuper**<br>
-Karan Makol · karan.makol@bluestacks.com · August 2026
+Karan Makol · karan.makol1@gmail.com · August 2026
 
 **Live prototype:** https://daenerysdrag.github.io/patti-royale-playsuper/<br>
 **Code:** https://github.com/DaenerysDrag/patti-royale-playsuper
@@ -102,86 +102,18 @@ product: optimise for **retention breadth** — many players holding a goal — 
 depth**. A held goal costs the brand nothing and returns a player tomorrow; a checkout costs CAC
 and may not.
 
-It is also why the funnel step I instrument for is nowhere near the payment.
+It is also why the conversion event I optimise for is **reserving a goal**, not completing a
+payment. Full funnel and event spec in `docs/03-event-taxonomy.md`.
 
 *(₹700 AOV, 10% commission, 50% studio share are my assumptions. If commission is 5%, the required
 redemption rate doubles and the catalog has to get cheaper — that's the first number I'd want from
 you.)*
 
----
-
-## Event taxonomy and the named leak
-
-```
-store_tile_impression → store_opened → sku_view → goal_created → checkout_started → payment_success
-                                                  ▲
-                                        THE LEAK I INSTRUMENT FOR
-```
-
-Every SKU-scoped event carries **`coins_short_by`** — the one property that separates a *pricing*
-failure from an *interest* failure:
-
-| Distribution | Diagnosis | Owner |
-|---|---|---|
-| mass at **0** | They could afford it and didn't want it → **interest** | Merchandising / brand mix |
-| mass **just above 0** | Tier boundary misplaced → **pricing** | Economy |
-| mass **far above 0** | Wrong shelf for this player → **placement** | Surfacing |
-
-Three diagnoses, three different owners, three different fixes. Nothing else in the taxonomy can
-tell them apart, which is why it is attached automatically by `track()` rather than left to call
-sites. **Event names are a closed TypeScript union — an invented name is a compile error**, so the
-taxonomy is a contract and not a suggestion.
-
-The PM console in the prototype renders this live off the app you are clicking. Nothing is mocked.
-
-## The measurement gap — stated honestly
-
-`voucher_delivered` is the **last event this system can observe.** The brand's real conversion
-happens off-platform, days later, at Swiggy's checkout.
-
-**So `payment_success` is not brand revenue.** It is a delivered coupon. Any ROI figure quoted to a
-brand on the strength of it is a proxy and should be labelled as one. Closing it needs unique
-per-player codes plus a brand-side redemption webhook reconciled on `code_id`. Until that exists
-three numbers are unknowable — true redemption rate, true CAC per acquired customer, and
-incremental-vs-cannibalised brand revenue — so the console greys `voucher_redeemed` out rather than
-inventing a figure. One fake number would discredit everything else on the panel.
-
----
-
-## What I deliberately did not build
-
-| Cut | Why |
-|---|---|
-| Search, filters, categories | Actively harmful in a 40-second window |
-| Multi-item cart | No browsing intent to justify it |
-| Physical goods, address form | A form mid-session is fatal on a phone, and a delivery promise is a trust liability I haven't earned |
-| Loyalty tiers, dynamic pricing | Same item, same price, everyone. See above |
-| Personalised ranking | The shelf order is fixed. Only the *effort copy* varies per player |
-| Gift cards, wallet top-ups | Cash-equivalent SKUs are arbitrage with a computable margin — what coin farms optimise against. A voucher with a minimum spend at one merchant has no resale value to a bot, so the merchandising constraint *is* the fraud control |
-| Separate order history | Coin earns, spends and past claims live in one ledger. Players don't think in "orders", they think "what happened to my coins" |
-
-**Integrity, since real-world value invites farming:** daily earn ceiling (900 — ~1.7× a Grinder's
-normal day, so it binds bots not humans), device attestation before the **first redemption and
-never before earning** — gate the payout, not the fun — and one-time codes bound to a player ID.
-None of it is enforced in a client-only prototype, and I'd rather say so than imply otherwise.
-
----
-
-## Open questions I would ask on day one
-
-1. **What coin-cap ceiling do brands actually accept?** I used 40% on Tier 3. It sets the whole
-   economy and I'm guessing.
-2. **Who eats fulfilment failure — brand, PlaySuper, or the studio?** A dead coupon damages trust
-   in *the game*, so the studio has the most to lose and the least control. That asymmetry needs an
-   owner before it needs a process.
-3. **Who calibrates the coin sink?** If each studio does it, every partner re-solves the same
-   economy problem badly.
-4. **Is the coin balance portable across partner games?** A cross-game wallet is a real moat and a
-   real liability the moment a studio churns.
-5. **What is the actual commission and studio split?** It determines the required redemption rate,
-   and therefore whether this catalog is priced right at all.
-
----
+**One thing I decided not to fake.** A delivered coupon is not brand revenue — the brand's real
+conversion happens off-platform, days later, at the merchant's checkout. So the prototype's console
+shows the redemption it can observe and greys out the one it cannot, rather than inventing a
+figure. Closing that gap needs unique per-player codes and a brand-side redemption webhook. Until
+it exists, every ROI number quoted to a brand is a proxy and should be labelled as one.
 
 ## Tools used
 
