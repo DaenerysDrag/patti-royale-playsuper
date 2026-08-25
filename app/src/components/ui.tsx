@@ -20,25 +20,49 @@ export const CoinAmount = ({ n, size = 14, className = '' }:
   </span>
 )
 
-export function Btn({ children, onClick, variant = 'primary', full, disabled, className = '' }: {
+/**
+ * Button geometry ported from the Claude Design canvas: pill radius, 48px tall (hero 52px),
+ * 14–15px at weight 600. Taller and rounder than what we had, which reads far more like a
+ * mobile game's CTA than a web button.
+ */
+export function Btn({ children, onClick, variant = 'primary', size = 'md', full, disabled,
+  className = '' }: {
   children: ReactNode; onClick?: () => void
-  variant?: 'primary' | 'ghost' | 'gold' | 'dark'; full?: boolean; disabled?: boolean
-  className?: string
+  variant?: 'primary' | 'ghost' | 'gold' | 'dark'
+  size?: 'md' | 'hero' | 'sm'
+  full?: boolean; disabled?: boolean; className?: string
 }) {
   const styles = {
-    primary: 'bg-felt-lift text-cream border border-white/12',
-    gold:    'bg-gold text-ink border border-gold-dim font-bold',
-    ghost:   'bg-transparent text-cream-dim border border-white/12',
-    dark:    'bg-black/35 text-cream border border-white/10',
+    primary: 'text-cream border border-white/14 bg-felt-lift',
+    gold:    'text-ink border border-gold-dim/60 font-bold',
+    ghost:   'text-cream-dim border border-white/14 bg-transparent',
+    dark:    'text-cream border border-white/12 bg-black/35',
   }[variant]
+  const dims = {
+    hero: 'h-[52px] text-[15px] px-6',
+    md:   'h-12 text-[14px] px-5',
+    sm:   'h-9 text-[12px] px-4',
+  }[size]
   return (
     <button
       onClick={onClick} disabled={disabled}
-      className={`tappable rounded-xl px-4 py-3 text-[13px] font-semibold leading-none
-        ${styles} ${full ? 'w-full' : ''} ${disabled ? 'opacity-40 pointer-events-none' : ''} ${className}`}
+      style={variant === 'gold' ? { background: 'var(--grad-gold)' } : undefined}
+      className={`tappable inline-flex items-center justify-center rounded-full font-semibold
+        leading-none ${dims} ${styles} ${full ? 'w-full' : ''}
+        ${disabled ? 'pointer-events-none opacity-40' : ''} ${className}`}
     >{children}</button>
   )
 }
+
+/** Thin progress bar. The design uses this inside tiles where a ring would be too heavy. */
+export const Bar = ({ pct, h = 5 }: { pct: number; h?: number }) => (
+  <div className="overflow-hidden rounded-full border border-white/10 bg-black/40"
+    style={{ height: h }}>
+    <div className="h-full rounded-full"
+      style={{ width: `${Math.min(100, Math.max(0, pct * 100))}%`,
+               background: 'var(--grad-gold)', transition: 'width 600ms cubic-bezier(.22,.61,.36,1)' }} />
+  </div>
+)
 
 /** Progress ring used for Goals. The visual promise that there is always a path. */
 export function Ring({ pct, size = 40, stroke = 4, children }:

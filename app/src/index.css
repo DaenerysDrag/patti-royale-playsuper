@@ -13,9 +13,33 @@
   --color-slate:     #0B1114;
 
   --font-display: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
-  --font-body:    ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body:    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono:    ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Gold read of the design's brand gradient. Kept gold rather than iris/cyan so the
+     store still belongs to a card table instead of a SaaS dashboard. */
+  --grad-gold:      linear-gradient(135deg, #F2C871 0%, #D9A340 55%, #B98A2C 100%);
+  --grad-gold-wash: linear-gradient(135deg, rgba(232,180,74,.16) 0%, rgba(169,129,46,.10) 100%);
 }
+
+/* ── Type utilities, ported from the design's scale ────────────────────────── */
+.t-eyebrow {
+  font-family: var(--font-body); font-size: 10px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+}
+.t-section {
+  font-family: var(--font-display); font-size: 10px; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+}
+.t-hero    { font-family: var(--font-display); font-weight: 800; font-size: 30px;
+             line-height: 1; letter-spacing: -.02em; }
+.t-stat    { font-family: var(--font-display); font-weight: 700; font-size: 20px; line-height: 1; }
+.t-title   { font-family: var(--font-display); font-weight: 700; font-size: 17px; line-height: 1.2; }
+.t-body    { font-size: 14px; line-height: 1.5; }
+.t-sub     { font-size: 11px; line-height: 1.45; }
+.t-mono-lbl{ font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em;
+             text-transform: uppercase; }
+.t-mono    { font-family: var(--font-mono); font-size: 10.5px; line-height: 1.5; }
 
 html, body, #root { height: 100%; }
 body {
@@ -46,3 +70,5 @@ body {
   100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 .coin-rise { animation: coinRise .5s cubic-bezier(.2,.9,.3,1) both; }
+
+@keyframes prBlink { 0%,100% { opacity: 1 } 50% { opacity: .25 } }
