@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useStore } from '../store'
 import { CoinAmount, Ring } from '../components/ui'
+import HowToPlay from '../components/HowToPlay'
 
 /**
  * THE MATCH — and it must be losable.
@@ -68,7 +69,7 @@ const CardFace = ({ c, dim, big }: { c: Card; dim?: boolean; big?: boolean }) =>
 )
 
 export default function Match() {
-  const { resolveMatch, goals, wallet, ledger, go } = useStore()
+  const { resolveMatch, goals, wallet, ledger, go, seenHowTo, dismissHowTo } = useStore()
   const [{ leads, hand }, setDeal] = useState(deal)
   const [used, setUsed] = useState<string[]>([])
   const [trick, setTrick] = useState(0)
@@ -77,6 +78,7 @@ export default function Match() {
   const [played, setPlayed] = useState<Card | null>(null)
   const [t, setT] = useState(TRICK_SECONDS)
   const busy = useRef(false)
+  const [showHow, setShowHow] = useState(!seenHowTo)
 
   const hasPlayedBefore = ledger.some(e => e.reason === 'match_win' || e.reason === 'match_loss')
 
@@ -87,7 +89,7 @@ export default function Match() {
   const lead = leads[trick]
 
   const play = (c: Card) => {
-    if (busy.current || !lead) return
+    if (busy.current || !lead || showHow) return
     busy.current = true
     const beat = c.suit === lead.suit && c.v > lead.v
     setPlayed(c); setUsed(u => [...u, c.id]); setFlash(beat ? 'win' : 'loss')
@@ -105,7 +107,7 @@ export default function Match() {
 
   // Timeout plays your leftmost unused card — usually the wrong one. Hesitation costs you.
   useEffect(() => {
-    if (flash) return
+    if (flash || showHow) return
     if (t <= 0) {
       const next = hand.find(c => !used.includes(c.id))
       if (next) play(next)
@@ -113,11 +115,19 @@ export default function Match() {
     }
     const id = window.setTimeout(() => setT(x => x - 0.1), 100)
     return () => window.clearTimeout(id)
-  }, [t, flash])
+  }, [t, flash, showHow])
 
   return (
-    <div className="flex h-full flex-col bg-felt"
+    <div className="relative flex h-full flex-col overflow-hidden bg-felt"
       style={{ backgroundImage: 'radial-gradient(120% 60% at 50% 0%, #14503D 0%, #0E3B2E 55%, #072A20 100%)' }}>
+
+      {showHow && (
+        <HowToPlay onStart={() => {
+          setShowHow(false)
+          dismissHowTo()
+          setDeal(deal()); setUsed([]); setTrick(0); setWon(0); setT(TRICK_SECONDS)
+        }} />
+      )}
 
       {/* HUD — coin chip is an entry point, goal ring is the retention loop made visible */}
       <div className="flex items-center gap-2 px-4 pt-3">
@@ -138,6 +148,9 @@ export default function Match() {
             text-cream-dim border border-white/10">
             Trick {trick + 1}/3 · Won {won}
           </div>
+          <button onClick={() => setShowHow(true)} aria-label="How to play"
+            className="tappable grid h-[26px] w-[26px] place-items-center rounded-full
+              border border-white/10 bg-black/35 text-[11px] font-bold text-cream-dim">?</button>
         </div>
       </div>
 

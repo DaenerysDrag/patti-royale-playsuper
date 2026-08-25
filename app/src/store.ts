@@ -33,8 +33,11 @@ interface State {
   entryPoint: EntryPoint
   pmOpen: boolean
   justCompletedGoal: string | null
+  /** First-run "How to play" card. Persisted, so it shows once and stays dismissed. */
+  seenHowTo: boolean
 
   go: (s: Screen) => void
+  dismissHowTo: () => void
   openStore: (from: EntryPoint) => void
   viewSku: (id: string) => void
   resolveMatch: (r: 'win' | 'loss') => void
@@ -72,6 +75,7 @@ const initial = {
   entryPoint: 'direct' as EntryPoint,
   pmOpen: true,
   justCompletedGoal: null as string | null,
+  seenHowTo: false,
 }
 
 export const useStore = create<State>()(
@@ -280,13 +284,15 @@ export const useStore = create<State>()(
           }
         },
 
+        dismissHowTo: () => set({ seenHowTo: true }),
+
         setVariant: (variant) => set({ variant }),
         setArchetype: (archetype) => set({ archetype }),
         togglePm: () => set({ pmOpen: !get().pmOpen }),
         reset: () => set({ ...initial }),
       }
     },
-    { name: 'pr_state', version: 2 },
+    { name: 'pr_state', version: 3 },
   ),
 )
 
