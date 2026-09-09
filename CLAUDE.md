@@ -64,8 +64,15 @@ PlaySuper Product Associate assignment. Brief: `../../PLAYSUPER_BUILD_PROMPT.md`
       `.github/workflows/deploy.yml` typechecks + builds + republishes on every push to main.
 - [x] Phase 7 — SUBMISSION.md, README.md, RECORDING.md
 - [x] Browser QA — Karan tested 2026-08-25, no defects reported
-- [ ] Karan records the 40s walkthrough (RECORDING.md has the 9-shot list)
-- [ ] Send: live link + SUBMISSION.md + resume
+- [x] Report finalised + rendered to PDF via `tools/md2pdf.py` (3pp, 7 sections)
+- [x] Claude Design canvas reviewed and selectively ported (see the workstream CLAUDE.md)
+- [ ] Karan records the 40s walkthrough — **only if PlaySuper asked for one** (his call)
+- [ ] Send: live link + the PDF + resume
+
+## After ANY change here
+Re-read the Tools/stack section of `SUBMISSION.md`, then run `python3 tools/md2pdf.py`.
+A timestamp check can pass while the note's *content* has gone stale against the app — that has
+happened twice.
 
 ## Owned by Karan — do not let the model pick these
 
