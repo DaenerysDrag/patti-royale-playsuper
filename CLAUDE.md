@@ -77,6 +77,10 @@ happened twice.
 ## Owned by Karan — do not let the model pick these
 
 peg · coin caps · tier thresholds · avg order value (₹700) · commission % (10) · studio share %
-(50) · which funnel step is the leak · the IAP guardrail kill criterion · the day-one open
-questions. If one of these produces an absurd downstream result, **stop and say so** — do not
-quietly substitute a nicer number.
+(50) · which funnel step is the leak · **the North Star and its guardrails** · the three closing
+questions in the report. If one of these produces an absurd downstream result, **stop and say so**
+— do not quietly substitute a nicer number.
+
+*(The "IAP guardrail kill criterion" used to be on this list. It was cut with the economy
+dashboard in the six scope cuts — the guardrail survives only as a line in the report's North Star
+callout, not as panel UI.)*
