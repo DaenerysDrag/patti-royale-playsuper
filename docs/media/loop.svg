@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8fa89a"/>
+    </marker>
+    <marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#e9b949"/>
+    </marker>
+    <linearGradient id="gold" x1="0" x2="1"><stop offset="0" stop-color="#f3cf6e"/><stop offset="1" stop-color="#c8942f"/></linearGradient>
+  </defs>
+  <rect width="1200" height="400" rx="18" fill="#06140f"/>
+
+  <!-- e-commerce row -->
+  <text x="40" y="52" font-size="16" letter-spacing="3" fill="#8fa89a">E-COMMERCE · THE CART IS DEAD INTENT</text>
+  <g font-size="21" font-weight="600" fill="#cfd8d3">
+    <rect x="40" y="72" width="200" height="70" rx="35" fill="#0d221a" stroke="#244236" stroke-width="2"/><text x="140" y="115" text-anchor="middle">browse</text>
+    <rect x="300" y="72" width="200" height="70" rx="35" fill="#0d221a" stroke="#244236" stroke-width="2"/><text x="400" y="115" text-anchor="middle">add to cart</text>
+    <rect x="560" y="72" width="200" height="70" rx="35" fill="#0d221a" stroke="#244236" stroke-width="2"/><text x="660" y="115" text-anchor="middle">buy</text>
+  </g>
+  <g stroke="#8fa89a" stroke-width="2.5" fill="none" marker-end="url(#a)"><path d="M240,107 H296"/><path d="M500,107 H556"/></g>
+  <text x="790" y="104" font-size="18" fill="#8fa89a">or abandon, and get an email</text>
+  <text x="790" y="128" font-size="18" fill="#8fa89a">about it later</text>
+
+  <!-- game row -->
+  <text x="40" y="208" font-size="16" letter-spacing="3" fill="#e9b949">PATTI ROYALE · THE CART IS A RETENTION LOOP</text>
+  <g font-size="21" font-weight="700" fill="#1a1205">
+    <rect x="40"  y="228" width="200" height="74" rx="37" fill="url(#gold)"/><text x="140" y="273" text-anchor="middle">want</text>
+    <rect x="300" y="228" width="200" height="74" rx="37" fill="url(#gold)"/><text x="400" y="273" text-anchor="middle">reserve</text>
+    <rect x="560" y="228" width="200" height="74" rx="37" fill="url(#gold)"/><text x="660" y="273" text-anchor="middle">play</text>
+    <rect x="820" y="228" width="160" height="74" rx="37" fill="url(#gold)"/><text x="900" y="273" text-anchor="middle">afford</text>
+    <rect x="1020" y="228" width="140" height="74" rx="37" fill="url(#gold)"/><text x="1090" y="273" text-anchor="middle">claim</text>
+  </g>
+  <g stroke="#e9b949" stroke-width="2.5" fill="none" marker-end="url(#g)">
+    <path d="M240,265 H296"/><path d="M500,265 H556"/><path d="M760,265 H816"/><path d="M980,265 H1016"/>
+    <path d="M700,302 V338 Q700,352 686,352 H634 Q620,352 620,338 V308" stroke-dasharray="6 6"/>
+  </g>
+  <text x="722" y="342" font-size="17" fill="#cfd8d3">each match fills the goal ring in the HUD,</text><text x="722" y="364" font-size="17" fill="#cfd8d3">so the reward is a reason to come back tomorrow</text>
+</svg>
