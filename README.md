@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🃏 Patti Royale · Rewards
+# Patti Royale · Rewards
 
 **An in-game commerce store where you earn the coins you spend.**
 
